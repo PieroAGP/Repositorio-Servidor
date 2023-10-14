@@ -5,7 +5,7 @@ import random
 #creo una funcion para llamar a la api para que nos devuelva los nombres de los personajes
 def obtenerPersonajes():
     #le paso una url
-    url = "https://api.gameofthronesquotes.xyz/v1/random/3"
+    url = "https://api.gameofthronesquotes.xyz/v1/random/5"
     #llamada a la api
     respuesta=requests.get(url)
     #si la api me devuelve algo entro en el if
@@ -43,12 +43,14 @@ def funcionDatos(nombrePersonaje):
         return datoPersonajes
 
 
-#declaramos una funcion para tener un switch en python, el cual sera un dicionario
+#declaramos una funcion para tener un switch en python, el cual sera un dicionario con valores a la respuesta del usuario
 def switchOpcion(numeroUsuario):
     switch_dict = {
         1:nombre1,
         2:nombre2,
-        3:nombre3
+        3:nombre3,
+        4:nombre4,
+        5:nombre5
     }
     return switch_dict.get(numeroUsuario,'error')
 
@@ -61,12 +63,13 @@ def adivinarPersonaje(baseDeDatos):
     personaje=objetoAleatorio["character"]["name"]
     #print(frase)
     #print(personaje)
-    print("-------------------------------------------------------------------")
+    
     print("Quien dijo la siguiente frase:")
-    print(frase)
-    print(f"Opciones: 1) {nombre1}, 2) {nombre2}, 3) {nombre3}")
-    print("-------------------------------------------------------------------")
-    respuestaUsuario=int(input("Seleciona la opcion correcta (1,2,3): "))
+    print("         ",frase)
+    print(f"Opciones: ")
+    print(f"          1) {nombre1}, 2) {nombre2}, 3) {nombre3}, 4) {nombre4}, 5){nombre5}")
+    print()
+    respuestaUsuario=int(input("Seleciona la opcion correcta (1,2,3,4,5): "))
     respuestaUsuarioCadena=switchOpcion(respuestaUsuario)
     
     #comprobamos la respuesta del usuario
@@ -76,23 +79,43 @@ def adivinarPersonaje(baseDeDatos):
         resultado="Incorrecto"
     #enseñamos resultado
     print (resultado)
+    print("-------------------------------------------------------------------")
     #devolvemos el resultado
     return resultado
 
+#declaramos una funcion para tener un switch en python, el cual sera un dicionario con valores a la puntuación del usuario
 def switchPuntuacion(numeroAciertos):
     puntuacion_dict = {
-        0:"mal",
-        1:"regular",
-        2:"bien",
-        3:"Exelente"
+        0:"0 aciertos",
+        1:"1 acierto",
+        2:"2 aciertos",
+        3:"3 aciertos"
     }
     return puntuacion_dict.get(numeroAciertos, "Puntuación no encontrada")
 
+#creamos una funcion para iniciar una partida
+def partidaNueva():
+    contador=0
+    for i in range(3):
+        respuesta=adivinarPersonaje(listaCompleta)
+        if respuesta == "Acertaste":
+            contador+=1
+    resultadoDePuntuacion = switchPuntuacion(contador)
+    print(resultadoDePuntuacion)
+
+#creamos una funcion para pintar el menu
+def menu():
+    print("Menú:")
+    print("a. ¿Como jugar?")
+    print("b. Iniciar una partida")
+    print("c. Salir")
+
+#----------------------------------------------------------------------------------------------------------------------------
 #declaramos variables de tipo lista para almacenar lo que devuelve el funcion(slugs y nombres de personajes)
 nuevaListaSlug,nuevaListaNombre=obtenerPersonajes()
 #almacenar los slugs y nombres en variables
-slug1,slug2,slug3=nuevaListaSlug
-nombre1,nombre2,nombre3=nuevaListaNombre
+slug1,slug2,slug3,slug4,slug5=nuevaListaSlug
+nombre1,nombre2,nombre3,nombre4,nombre5=nuevaListaNombre
 
 #almacenar listas de objestos de cada personaje
 lista1=funcionDatos(slug1)
@@ -100,10 +123,32 @@ lista2=funcionDatos(slug2)
 lista3=funcionDatos(slug3)
 #unir las lista para tener un base de datos
 listaCompleta=lista1+lista2+lista3
-contador=0
-for i in range(3):
-    respuesta=adivinarPersonaje(listaCompleta)
-    if respuesta == "Acertaste":
-        contador+=1
-resultadoDePuntuacion = switchPuntuacion(contador)
-print(resultadoDePuntuacion)
+
+
+#muestro menu y sus opciones
+while True:
+    menu()
+    opcionMenu=input("Selecione una opción: ")
+    if opcionMenu=="a":
+        print("-------------------------------------------------------------------")
+        print("Para poder jugar, necesitas seleccionar la opción 'Iniciar una partida'. \nLuego, el juego comenzará, el cual consiste en adivinar personajes \nde Game of Thrones según la frase que te toque aleatoriamente. \nPara cada frase, se te mostrarán las opciones.")
+        print("-------------------------------------------------------------------")
+        print()
+    elif opcionMenu=="b":
+        print("-------------------------------------------------------------------")
+        partidaNueva()
+        print("-------------------------------------------------------------------")
+        print()
+    elif opcionMenu=="c":
+        print("-------------------------------------------------------------------")
+        salir=input("Seguro que quieres salir (s/n): ")
+        if salir!="n":
+            print("-------------------------------------------------------------------")
+            break
+        print("-------------------------------------------------------------------")
+        print()
+    else:
+        print("-------------------------------------------------------------------")
+        print("No existe opción, seleciona una opción a,b,c")
+        print("-------------------------------------------------------------------")
+        print()
