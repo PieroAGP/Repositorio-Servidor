@@ -63,7 +63,7 @@ def adivinarPersonaje(baseDeDatos):
     personaje=objetoAleatorio["character"]["name"]
     #print(frase)
     #print(personaje)
-    
+    print()
     print("Quien dijo la siguiente frase:")
     print("         ",frase)
     print(f"Opciones: ")
@@ -78,7 +78,9 @@ def adivinarPersonaje(baseDeDatos):
     else:
         resultado="Incorrecto"
     #enseñamos resultado
+    print()
     print (resultado)
+    print()
     print("-------------------------------------------------------------------")
     #devolvemos el resultado
     return resultado
@@ -89,19 +91,27 @@ def switchPuntuacion(numeroAciertos):
         0:"0 aciertos",
         1:"1 acierto",
         2:"2 aciertos",
-        3:"3 aciertos"
+        3:"3 aciertos",
+        4:"4 aciertos",
+        5:"5 aciertos"
     }
     return puntuacion_dict.get(numeroAciertos, "Puntuación no encontrada")
 
 #creamos una funcion para iniciar una partida
 def partidaNueva():
     contador=0
-    for i in range(3):
+    for i in range(5):
         respuesta=adivinarPersonaje(listaCompleta)
         if respuesta == "Acertaste":
             contador+=1
     resultadoDePuntuacion = switchPuntuacion(contador)
+    print()
+    if contador<3:
+        print("No te preocupes, ¡sigue intentándolo! La próxima vez será mejor.")
+    else:
+        print("¡Felicidades por tu victoria!")
     print(resultadoDePuntuacion)
+    print()
 
 #creamos una funcion para pintar el menu
 def menu():
@@ -130,25 +140,25 @@ while True:
     menu()
     opcionMenu=input("Selecione una opción: ")
     if opcionMenu=="a":
-        print("-------------------------------------------------------------------")
+        print("--------------------------------------------------------------------------------------------------------------------------------------")
         print("Para poder jugar, necesitas seleccionar la opción 'Iniciar una partida'. \nLuego, el juego comenzará, el cual consiste en adivinar personajes \nde Game of Thrones según la frase que te toque aleatoriamente. \nPara cada frase, se te mostrarán las opciones.")
-        print("-------------------------------------------------------------------")
+        print("--------------------------------------------------------------------------------------------------------------------------------------")
         print()
     elif opcionMenu=="b":
-        print("-------------------------------------------------------------------")
+        print("--------------------------------------------------------------------------------------------------------------------------------------")
         partidaNueva()
-        print("-------------------------------------------------------------------")
+        print("--------------------------------------------------------------------------------------------------------------------------------------")
         print()
     elif opcionMenu=="c":
-        print("-------------------------------------------------------------------")
+        print("--------------------------------------------------------------------------------------------------------------------------------------")
         salir=input("Seguro que quieres salir (s/n): ")
         if salir!="n":
-            print("-------------------------------------------------------------------")
+            print("--------------------------------------------------------------------------------------------------------------------------------------")
             break
-        print("-------------------------------------------------------------------")
+        print("--------------------------------------------------------------------------------------------------------------------------------------")
         print()
     else:
-        print("-------------------------------------------------------------------")
+        print("--------------------------------------------------------------------------------------------------------------------------------------")
         print("No existe opción, seleciona una opción a,b,c")
-        print("-------------------------------------------------------------------")
+        print("--------------------------------------------------------------------------------------------------------------------------------------")
         print()
