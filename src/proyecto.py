@@ -141,7 +141,10 @@ while True:
     opcionMenu=input("Selecione una opción: ")
     if opcionMenu=="a":
         print("--------------------------------------------------------------------------------------------------------------------------------------")
-        print("Para poder jugar, necesitas seleccionar la opción 'Iniciar una partida'. \nLuego, el juego comenzará, el cual consiste en adivinar personajes \nde Game of Thrones según la frase que te toque aleatoriamente. \nPara cada frase, se te mostrarán las opciones.")
+        print("Para comenzar a jugar, debes seleccionar la opción 'Iniciar partida'. Una vez que comience el juego, deberás adivinar personajes") 
+        print("de Game of Thrones según la frase que se te asigne aleatoriamente. Después de cada frase, se te presentarán opciones para elegir") 
+        print("la respuesta correcta. Para ganar, necesitas obtener 3 o más respuestas acertadas. ¡Buena suerte!")
+        
         print("--------------------------------------------------------------------------------------------------------------------------------------")
         print()
     elif opcionMenu=="b":
